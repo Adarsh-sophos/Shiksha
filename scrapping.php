@@ -13,20 +13,24 @@
     $first = file_get_contents($matches[1][0]);
     
     $esta = '@<label>Established in (\d+)<\/label>@';
-    preg_match($esta, $first, $year);
+    if(!preg_match($esta, $first, $year))
+        print("No establishment year");
     print($year[1]);
     
     $address = '@<span class="flLt add-details">([^<]+)</span>@';
-    preg_match($address, $first, $add);
+    if(!preg_match($address, $first, $add))
+        print("Address not found");
     $add[1] = trim($add[1]);
     print($add[1]);
     
     $web = '@<span class="flLt add-details" itemprop="url">\s+<a href="([^"]+)"@';
-    preg_match($web, $first, $website);
+    if(!preg_match($web, $first, $website))
+        print("website not found");
     print($website[1]);
     
     $course_offered = '@<span class="flLt">([^<]+)</span>\s+</h3>@';
-    preg_match_all($course_offered, $first, $course);
+    if(!preg_match_all($course_offered, $first, $course))
+        printf("Offered courses not found");
     print(sizeof($course[1]));
     print($course[1][3]);
     
