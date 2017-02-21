@@ -3,6 +3,11 @@
     
     $regex = '<a class="institute-title-clr" href="([^"]+)" title="([^"]+)">';
     
+    $page = '@(\d)</a></li>\s*<li><a href="[^"]+" class="next">Next@';
+    if(!preg_match($page, $data, $pages))
+        print("Pages not found");
+    print($pages[1]);
+    
     if(!preg_match_all($regex, $data, $matches))
         print("No matches found\n");
     
@@ -14,7 +19,7 @@
     
     $esta = '@<label>Established in (\d+)<\/label>@';
     if(!preg_match($esta, $first, $year))
-        print("No establishment year");
+        print("Establishment year not found");
     print($year[1]);
     
     $address = '@<span class="flLt add-details">([^<]+)</span>@';
@@ -37,4 +42,6 @@
     //$com = '@<div class="overview overview_h" style="[^"]+">\s+<ul>(?:<li>(.*)<\/li>|\s)*<\/ul>@';
     //preg_match($com, $first, $company);
     //print($company[1][0]);
+    
+    
 ?>
