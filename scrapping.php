@@ -8,16 +8,24 @@
     }
     
     //getting source of main page
-    $data = file_get_contents("http://engineering.shiksha.com/be-btech-courses-in-jaipur-ctpg");
+    $data = file_get_contents($_POST["url"]);
+    
+    /*if(isset($_POST["city"]))
+    {
+        $create_url = "http://engineering.shiksha.com/be-btech-courses-in-. $_POST["city"] ."-ctpg";
+        $data = 
+    }*/
+    
+    
     
     //extracting every colleges' link and title
     $regex = '<a class="institute-title-clr" href="([^"]+)" title="([^"]+)">';
     
     //finding the number of pages
-    $page = '@(\d)</a></li>\s*<li><a href="[^"]+" class="next">Next@';
+    /*$page = '@(\d)</a></li>\s*<li><a href="[^"]+" class="next">Next@';
     if(!preg_match($page, $data, $pages))
         print("Pages not found");
-    print($pages[1]);
+    print($pages[1]);*/
     
     if(!preg_match_all($regex, $data, $matches))
         print("No matches found\n");
