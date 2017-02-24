@@ -24,49 +24,71 @@
     
     //print(sizeof($matches[1]));
     
-    print($matches[2][1]);
+    for($i=0; $i<sizeof($matches[1]); $i++)
+    {
+        print($matches[2][$i]."\n");
     
     
-    //Getting html of one college
-    $first = file_get_contents($matches[1][1]);
+        //Getting html of one college
+        $first = file_get_contents($matches[1][$i]);
     
-    //Establishement year
-    $esta = '@<label>Established in (\d+)<\/label>@';
-    if(!preg_match($esta, $first, $year))
-        print("Establishment year not found");
-    print($year[1]);
+        //Establishement year
+        $esta = '@<label>Established in (\d+)<\/label>@';
+        if(!preg_match($esta, $first, $year))
+        {
+            print("Establishment year not found");
+            $year[1] = "-";
+            //print($year[1]);
+        }
     
-    //Address of college
-    $addr = '@<span class="flLt add-details">([^<]+)</span>@';
-    if(!preg_match($addr, $first, $address))
-        print("Address not found");
-    $address[1] = trim($address[1]);
-    print($address[1]);
+        //Address of college
+        $addr = '@<span class="flLt add-details">([^<]+)</span>@';
+        if(!preg_match($addr, $first, $address))
+        {
+            print("Address not found");
+            $address[1] = "-";
+        }
+        $address[1] = trim($address[1]);
+        //print($address[1]);
     
-    //Website of college
-    $web = '@<span class="flLt add-details" itemprop="url">\s+<a href="([^"]+)"@';
-    if(!preg_match($web, $first, $url))
-        print("website not found");
-    print($url[1]);
+        //Website of college
+        $web = '@<span class="flLt add-details" itemprop="url">\s+<a href="([^"]+)"@';
+        if(!preg_match($web, $first, $url))
+        {
+            print("website not found");
+            $url[1] = "-";
+        }
+        //print($url[1]);
     
-    //Courses offered
-    $course_offered = '@<span class="flLt">([^<]+)</span>\s+</h3>@';
-    if(!preg_match_all($course_offered, $first, $course))
-        printf("Offered courses not found");
-    //print(sizeof($course[1]));
-    print(implode("#",$course[1]));
+        //Courses offered
+        $course_offered = '@<span class="flLt">([^<]+)</span>\s+</h3>@';
+        if(!preg_match_all($course_offered, $first, $course))
+        {
+            printf("Offered courses not found");
+            $course[1] = "-";
+        }
+        //print(sizeof($course[1]));
+        //print(implode("#",$course[1]));
+      
+        //companies visited
+        $com = '@<div class="overview overview_h">\s*<ul>\s*(<li>.*<\/li>|\s)*<\/ul>@';
+        if(!preg_match($com, $first, $company))
+        {
+            print("Can not found details\n");
+            $company[0] = "-";
+        }
+        //print_r($company[0]);
     
-    //companies visited
-    $com = '@<div class="overview overview_h">\s*<ul>\s*(<li>.*<\/li>|\s)*<\/ul>@';
-    if(!preg_match($com, $first, $company))
-        print("Can not found details\n");
-    print_r($company[0]);
     
+        //SQL queries
+        $sql = sprintf("INSERT INTO `colleges` (`name`,`address`,`year`,`courses`,`company`,`url`) VALUES ('%s','%s','%s','%s','%s','%s') ",$matches[2][$i], $address[1], $year[1], implode('#',$course[1]), $company[0], $url[1]);
     
-    //SQL queries
-    $sql = sprintf("INSERT INTO `colleges` (`name`,`address`,`year`,`courses`,`company`,`url`) VALUES ('%s','%s','%s','%s','%s','%s') ",$matches[2][1], $address[1], $year[1], implode('#',$course[1]), $company[0], $url[1]);
-    
-    $check = mysqli_query($link, $sql);
-    if($check === false)
-        printf("Can not insert");
+        $check = mysqli_query($link, $sql);
+        if($check === false)
+            printf("Can not insert");
+        
+        sleep(1.5);
+            
+    }
+
 ?>
