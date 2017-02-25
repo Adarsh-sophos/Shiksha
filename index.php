@@ -18,6 +18,9 @@
         <script src="/js/bootstrap.min.js"></script>
 
         <script src="/js/scripts.js"></script>
+        
+        <!-- jquery.redirect/jquery.redirect.js -->
+        <script src="js/jquery.redirect.js"></script>
 
     </head>
 

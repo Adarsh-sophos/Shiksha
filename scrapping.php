@@ -89,7 +89,7 @@
     
     
         //SQL queries
-        $sql = sprintf("INSERT INTO `colleges` (`name`,`address`,`year`,`courses`,`company`,`url`) VALUES ('%s','%s','%s','%s','%s','%s') ",$matches[2][$i], $address[1], $year[1], implode('#',$course[1]), $company[0], $url[1]);
+        $sql = sprintf("INSERT INTO `colleges` (`city`,`name`,`address`,`year`,`courses`,`company`,`url`) VALUES ('%s','%s','%s','%s','%s','%s','%s') ", $_POST["city"], $matches[2][$i], $address[1], $year[1], implode('#',$course[1]), $company[0], $url[1]);
     
         $check = mysqli_query($link, $sql);
         if($check === false)
@@ -98,5 +98,7 @@
         sleep(1.5);
             
     }
+    
+    mysqli_close($link);
 
 ?>

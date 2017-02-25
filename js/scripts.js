@@ -22,13 +22,18 @@ $(function(){
                 $.ajax({
                     url: '/scrapping.php',
                     type: 'POST',
-                    data: { url : web_url },
+                    data: { url : web_url, city: ci },
                     success: function(output) {
                       console.log(output);
                   }
                 });
             }
             
+            $(document).ajaxStop( function() {
+                
+                $.redirect('/table.php', {'city': ci}, "POST");
+                
+            });
             
         })
             
