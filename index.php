@@ -17,7 +17,7 @@
         <!-- http://getbootstrap.com/ -->
         <script src="/js/bootstrap.min.js"></script>
 
-        <!-- <script src="/js/scripts.js"></script> -->
+        <script src="/js/scripts.js"></script>
 
     </head>
 
@@ -35,7 +35,7 @@
 
             <div id="middle">
                 
-                <form action="scrapping.php" method="post" id="form">
+                <form id="form">
                     <fieldset>
                         <div class="form-group">
                             <input autocomplete="off" autofocus class="form-control" name="city" placeholder="City Name" type="text"/>

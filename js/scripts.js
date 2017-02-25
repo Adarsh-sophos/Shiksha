@@ -2,20 +2,22 @@ $(function(){
     
     $("#form").submit( function(){
         
-        var city_name = {
-            city: $("#form").find('input[name="city"]').val()
+        //event.preventDedault();
+        var ci = $("#form").find('input[name="city"]').val();
+        var city = {
+            city_name: ci
         };
         
-        $.getJSON("getpages.php", city_name)
+        $.getJSON("/getpages.php", city)
         .done(function(data, textStatus, jqXHR) {
             var pages = data[0].pages;
             
             for(var i=1; i<=Number(pages); i++)
             {
                 if(i==1)
-                    var web_url = "http://engineering.shiksha.com/be-btech-courses-in-jaipur-ctpg";
+                    var web_url = "http://engineering.shiksha.com/be-btech-courses-in-"+ ci +"-ctpg";
                 else
-                    var web_url = "http://engineering.shiksha.com/be-btech-courses-in-jaipur-"+String(i)+"-ctpg";
+                    var web_url = "http://engineering.shiksha.com/be-btech-courses-in-"+ ci +"-"+String(i)+"-ctpg";
                 
                 $.ajax({
                     url: '/scrapping.php',
@@ -35,5 +37,9 @@ $(function(){
         // log error to browser's console
         console.log(errorThrown.toString());
         });
+        
+        return false;
     });
+    
+    
 });

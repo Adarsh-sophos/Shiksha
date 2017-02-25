@@ -7,7 +7,7 @@
     $page = '@(\d)</a></li>\s*<li><a href="[^"]+" class="next">Next@';
     if(!preg_match($page, $data, $pages))
         print("Pages not found");
-    //print($pages[1]);
+    print($pages[1]);
     
     $json = [['pages' => $pages[1]]];
     
