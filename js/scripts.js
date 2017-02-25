@@ -24,7 +24,7 @@ $(function(){
                     type: 'POST',
                     data: { url : web_url },
                     success: function(output) {
-                      alert(output);
+                      console.log(output);
                   }
                 });
             }
