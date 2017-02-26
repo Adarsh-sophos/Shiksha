@@ -89,8 +89,16 @@
     
     
         //SQL queries
-        $sql = sprintf("INSERT INTO `colleges` (`city`,`name`,`address`,`year`,`courses`,`company`,`url`) VALUES ('%s','%s','%s','%s','%s','%s','%s') ", $_POST["city"], $matches[2][$i], $address[1], $year[1], implode('#',$course[1]), $company[0], $url[1]);
-    
+        $first = sprintf("SELECT * FROM colleges WHERE city='%s' AND name='%s'", $_POST["city"], $matches[2][$i]);
+        $result = mysqli_query($link, $first);
+        $n = mysqli_num_rows($result);
+        print($n."\n");
+        if($n == 0)
+            $sql = sprintf("INSERT INTO `colleges` (`city`,`name`,`address`,`year`,`courses`,`company`,`url`) VALUES ('%s','%s','%s','%s','%s','%s','%s') ", $_POST["city"], $matches[2][$i], $address[1], $year[1], implode('#',$course[1]), $company[0], $url[1]);
+        else
+            $sql = sprintf("UPDATE colleges SET courses='%s',company='%s',url='%s' WHERE city='%s' AND name='%s' ", implode('#',$course[1]), $company[0], $url[1], $_POST["city"], $matches[2][$i]);
+        
+        
         $check = mysqli_query($link, $sql);
         if($check === false)
             printf("Can not insert");
