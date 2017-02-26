@@ -37,7 +37,7 @@
 
             <div id="middle">
 
-                <table class="table table-striped">
+                <table class="table table-striped table-hover">
                     <thead>
                         <tr>
                         <th style="text-align:center;">Number</th>
@@ -59,7 +59,7 @@
                                 exit();
                             }
                             
-                            $sql = sprintf("SELECT * FROM colleges WHERE city = '%s'", $_GET["city"]);
+                            $sql = sprintf("SELECT * FROM colleges WHERE city = '%s'", $_POST["city"]);
                             $rows = mysqli_query($link, $sql);
                             if($check === false)
                                 print("Can not fetch data");

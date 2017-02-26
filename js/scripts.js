@@ -8,6 +8,8 @@ $(function(){
             city_name: ci
         };
         
+        $("#middle").html('<img alt="please wait" src="/img/ajax-loader.gif">');
+        
         $.getJSON("/getpages.php", city)
         .done(function(data, textStatus, jqXHR) {
             var pages = data[0].pages;
