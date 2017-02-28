@@ -14,18 +14,12 @@ $(function(){
         .done(function(data, textStatus, jqXHR) {
             var pages = data[0].pages;
             
-            if(Number(pages) == 6)
-            {
-                $("#middle").html("<h3>Sorry!! City doensn't exist</h3>");
-                return;
-            }
-            
             for(var i=1; i<=Number(pages); i++)
             {
                 if(i==1)
-                    var web_url = "http://engineering.shiksha.com/be-btech-courses-in-"+ ci +"-ctpg";
+                    var web_url = "http://www.shiksha.com/b-tech/colleges/b-tech-colleges-"+ ci ;
                 else
-                    var web_url = "http://engineering.shiksha.com/be-btech-courses-in-"+ ci +"-"+String(i)+"-ctpg";
+                    var web_url = "http://www.shiksha.com/b-tech/colleges/b-tech-colleges-" + ci + "-" + String(i);
                 
                 $.ajax({
                     url: '/scrapping.php',

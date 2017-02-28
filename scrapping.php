@@ -10,22 +10,8 @@
     //getting source of main page
     $data = file_get_contents($_POST["url"]);
     
-    /*if(isset($_POST["city"]))
-    {
-        $create_url = "http://engineering.shiksha.com/be-btech-courses-in-. $_POST["city"] ."-ctpg";
-        $data = 
-    }*/
-    
-    
-    
     //extracting every colleges' link and title
-    $regex = '<a class="institute-title-clr" href="([^"]+)" title="([^"]+)">';
-    
-    //finding the number of pages
-    /*$page = '@(\d)</a></li>\s*<li><a href="[^"]+" class="next">Next@';
-    if(!preg_match($page, $data, $pages))
-        print("Pages not found");
-    print($pages[1]);*/
+    $regex = '@<h2 class="tuple-clg-heading"><a href="([^"]*)" target="_blank">([^<]*)</a>@';
     
     if(!preg_match_all($regex, $data, $matches))
         print("No matches found\n");
@@ -34,77 +20,85 @@
     
     for($i=0; $i<sizeof($matches[1]); $i++)
     {
-        print($matches[2][$i]."\n");
+        print($matches[2][$i]." => ");
     
     
         //Getting html of one college
         $first = file_get_contents($matches[1][$i]);
     
         //Establishement year
-        $esta = '@<label>Established in (\d+)<\/label>@';
+        $esta = '@Established (\d*)@';
         if(!preg_match($esta, $first, $year))
         {
-            print("Establishment year not found");
+            print(" Establishment year not found ");
             $year[1] = "-";
             //print($year[1]);
         }
     
         //Address of college
-        $addr = '@<span class="flLt add-details">([^<]+)</span>@';
+        $addr = '@Main Address</p>\s*<p class="c-num">([^<]*)</p>@';
         if(!preg_match($addr, $first, $address))
         {
-            print("Address not found");
-            $address[1] = "-";
+            $addr = '@Main Address</p>\s*<p class="c-num">([a-z A-Z.,\d&;/<>\s-]*)@';
+            if(!preg_match($addr, $first, $address))
+            {
+                print(" Address not found ");
+                $address[1] = "-";
+            }
+    
+            $address[1] = explode("</p>", $address[1])[0];
         }
+        
         $address[1] = trim($address[1]);
         //print($address[1]);
     
         //Website of college
-        $web = '@<span class="flLt add-details" itemprop="url">\s+<a href="([^"]+)"@';
+        $web = '@Website<\/p>\s*<p class="c-num"><a href="([^"]*)"@';
         if(!preg_match($web, $first, $url))
         {
-            print("website not found");
+            print(" website not found ");
             $url[1] = "-";
         }
         //print($url[1]);
     
         //Courses offered
-        $course_offered = '@<span class="flLt">([^<]+)</span>\s+</h3>@';
+        $course_offered = '@<div class="offered-name">\s*<p class="para-1" title="([^"]*)">@';
         if(!preg_match_all($course_offered, $first, $course))
         {
-            printf("Offered courses not found");
+            printf(" Offered courses not found ");
             $course[1] = "-";
         }
         //print(sizeof($course[1]));
         //print(implode("#",$course[1]));
       
-        //companies visited
-        $com = '@<div class="overview overview_h">\s*<ul>\s*(<li>.*<\/li>|\s)*<\/ul>@';
-        if(!preg_match($com, $first, $company))
+        //infrastructure
+        $infra = '@<li class="">\s*<a class="[^"]*">([^<]*)\s*</a></li>@';
+        if(!preg_match_all($infra, $first, $inf))
         {
-            print("Can not found details\n");
-            $company[0] = "-";
+            print(" Infrastructure not found ");
+            $inf[0] = "-";
         }
-        //print_r($company[0]);
+        //print_r($inf);
     
     
         //SQL queries
         $first = sprintf("SELECT * FROM colleges WHERE city='%s' AND name='%s'", $_POST["city"], $matches[2][$i]);
         $result = mysqli_query($link, $first);
         $n = mysqli_num_rows($result);
-        print($n."\n");
+
         if($n == 0)
-            $sql = sprintf("INSERT INTO `colleges` (`city`,`name`,`address`,`year`,`courses`,`company`,`url`) VALUES ('%s','%s','%s','%s','%s','%s','%s') ", $_POST["city"], $matches[2][$i], $address[1], $year[1], implode('#',$course[1]), $company[0], $url[1]);
+            $sql = sprintf("INSERT INTO colleges (city,name,address,year,courses,infra,url) VALUES ('%s','%s','%s','%s','%s','%s','%s') ", $_POST["city"], $matches[2][$i], $address[1], $year[1], implode('#',$course[1]), implode('#',$inf[1]) , $url[1]);
         else
-            $sql = sprintf("UPDATE colleges SET courses='%s',company='%s',url='%s' WHERE city='%s' AND name='%s' ", implode('#',$course[1]), $company[0], $url[1], $_POST["city"], $matches[2][$i]);
+            $sql = sprintf("UPDATE colleges SET courses='%s',infra='%s',url='%s' WHERE city='%s' AND name='%s' ", implode('#',$course[1]), implode('#',$inf[1]), $url[1], $_POST["city"], $matches[2][$i]);
         
         
         $check = mysqli_query($link, $sql);
         if($check === false)
-            printf("Can not insert");
+            printf(" Can not insert ");
         
         sleep(1.5);
-            
+        
+        print("\n");
     }
     
     mysqli_close($link);

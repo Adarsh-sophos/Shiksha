@@ -45,7 +45,7 @@
                         <th style="text-align:center;">Addess</th>
                         <th style="text-align:center;">Year</th>
                         <th style="text-align:center;">Courses Offered</th>
-                        <th style="text-align:center;">Top Recruiting Companies OR Infra./Teaching Facilities</th>
+                        <th style="text-align:center;">Infrastructure / Facilities</th>
                         <th style="text-align:center;">Website</th>
                         </tr>
                     </thead>
@@ -80,7 +80,12 @@
                                     print("<li>". $course[$j] ."</li>");
                                 print("</ul></td>");
                                 
-                                print("<td>" . $row["company"] . "</td>");
+                                print("<td><ul>");
+                                $infra = explode("#",$row["infra"]);
+                                for($j=0; $j< sizeof($infra); $j++)
+                                    print("<li>". $infra[$j] ."</li>");
+                                print("</ul></td>");
+
                                 print("<td>" . $row["url"] . "</td>");
                                 print("</tr>");
                                 $i = $i+1;
