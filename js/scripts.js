@@ -12,6 +12,15 @@ $(function(){
         
         $.getJSON("/getpages.php", city)
         .done(function(data, textStatus, jqXHR) {
+            
+            if( Number(data[0].error) == 1 )
+            {
+                $("#middle").html("<h3>Sorry!! City doensn't exist</h3></br><p>redirecting you in 3 seconds...</p>");
+                setTimeout(function(){$.redirect('/');}, 3000);
+                
+                return;
+            }
+            
             var pages = data[0].pages;
             
             for(var i=1; i<=Number(pages); i++)
