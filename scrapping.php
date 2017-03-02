@@ -62,11 +62,27 @@
         //print($url[1]);
     
         //Courses offered
-        $course_offered = '@<div class="offered-name">\s*<p class="para-1" title="([^"]*)">@';
-        if(!preg_match_all($course_offered, $first, $course))
+        
+        $course_offered = '@VIEW_ALL_POPULAR_COURSES" href="([^"]*)"@';
+        if(!preg_match($course_offered, $first, $course))
         {
-            printf(" Offered courses not found ");
-            $course[1] = "-";
+            $course_offered = '@<div class="offered-name">\s*<p class="para-1" title="([^"]*)">@';
+            if(!preg_match_all($course_offered, $first, $course))
+            {
+                printf(" Offered courses not found ");
+                $course[1] = "-";
+            }
+            
+        }
+        else
+        {
+            $off = file_get_contents($course[1]);
+            $new = '@<h5 class="tpl-course-name"><a target="_blank" href="[^"]*">([^<]*)</a></h5>@';
+            if(!preg_match_all($new, $off, $course))
+            {
+                printf(" Offered courses not found ");
+                $course[1] = "-";
+            }
         }
         //print(sizeof($course[1]));
         //print(implode("#",$course[1]));
