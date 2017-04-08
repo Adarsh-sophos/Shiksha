@@ -41,7 +41,7 @@
                 <form id="form">
                     <fieldset>
                         <div class="form-group">
-                            <input autocomplete="off" autofocus class="form-control" name="city" placeholder="City Name" type="text"/>
+                            <input autocomplete="off" autofocus class="form-control" name="city" placeholder="Enter City Name(Not URL)" type="text"/>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-default" type="submit">

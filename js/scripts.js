@@ -3,7 +3,7 @@ $(function(){
     $("#form").submit( function(){
         
         //event.preventDedault();
-        var ci = $("#form").find('input[name="city"]').val();
+        var ci = $("#form").find('input[name="city"]').val().toLowerCase();
         var city = {
             city_name: ci
         };

@@ -1,11 +1,8 @@
-/**
- * styles.css
- *
- * Computer Science 50
- * Problem Set 7
- *
- * Global CSS.
- */
+body,html {
+    background-image:url("/img/web.jpg");
+    background-size:cover;
+    background-attachment:fixed;
+}
 
 .container
 {

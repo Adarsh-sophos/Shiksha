@@ -36,10 +36,10 @@
         }
     
         //Address of college
-        $addr = '@Main Address</p>\s*<p class="c-num">([^<]*)</p>@';
+        $addr = '@Address</p>\s*<p class="c-num">([^<]*)</p>@';
         if(!preg_match($addr, $first, $address))
         {
-            $addr = '@Main Address</p>\s*<p class="c-num">([a-z A-Z.,\d&;/<>\s-]*)@';
+            $addr = '@Address</p>\s*<p class="c-num">([a-z A-Z.,\d&;/<>\s-]*)@';
             if(!preg_match($addr, $first, $address))
             {
                 print(" Address not found ");
