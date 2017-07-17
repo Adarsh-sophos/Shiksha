@@ -12,7 +12,7 @@ DOCUMENTATION For Project 1 **Web Scrapper**
 
 ## About
 - This is a web based application to scrape data of all the engineering colleges in a particular city from the website of Shiksha.com.
-- This website takes a name of city as an input and scrape the data of all the engineering colleges located in that city. For e.g. if you go to: http://www.shiksha.com/b-tech/colleges/b-tech-colleges-bangalore, this URL shows a list of 85 engineering colleges based in Chennai.
+- This website takes a name of city as an input and scrape the data of all the engineering colleges located in that city. For e.g. if you go to: http://www.shiksha.com/b-tech/colleges/b-tech-colleges-bangalore, this URL shows a list of 85 engineering colleges based in Bangalore.
 - This app takes one such **CITY NAME** from ***Shiksha.com*** of a particular city (BANGALORE in the aforementioned case) as an input using an HTML Form and scrape the following data of all the engineering colleges (85 in the case of Bangalore) located in that particular city:
   - College name
   - College address.
