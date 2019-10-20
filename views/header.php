@@ -1,3 +1,4 @@
+<!-- The common header for all the pages in the project -->
 <!DOCTYPE html>
 
 <html>
