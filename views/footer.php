@@ -1,3 +1,5 @@
+<!-- The common footer for every page of the project -->
+
 </div>
 
             <div id="bottom">
