@@ -37,7 +37,7 @@
             </div>
 
             <div id="middle">
-                
+                <!-- Beginning of the form         -->
                 <form id="form">
                     <fieldset>
                         <div class="form-group">
