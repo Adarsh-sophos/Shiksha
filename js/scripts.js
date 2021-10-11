@@ -36,6 +36,7 @@ $(function(){
                     data: { url : web_url, city: ci },
                     success: function(output) {
                       console.log(output);
+                      console.log("working");
                   }
                 });
             }
