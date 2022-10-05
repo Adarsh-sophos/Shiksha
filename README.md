@@ -1,12 +1,10 @@
 # Shiksha.com-
 
-DOCUMENTATION For Project 1 **Web Scrapper**
+DOCUMENTATION For **Web Scrapper**
 
 > Developed By
 >
-> ***Adarsh Kumar Jain*** ( SID 65 )
->
-> (Under guidance of **SophomoreS.in**)
+> ***Adarsh Jain***
 
 <br/>
 
